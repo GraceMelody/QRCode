@@ -41,19 +41,20 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
         if (scanningResult != null) {
             //we have a result
             String scanContent = scanningResult.getContents();
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    scanContent+"Promise doesn't run.", Toast.LENGTH_LONG);
-            toast.show();
+            //Toast toast = Toast.makeText(getApplicationContext(),
+            //        scanContent+"Promise doesn't run.", Toast.LENGTH_LONG);
+            //toast.show();
 
+            String jsonstr = "{\"id\": \"" +  scanContent +"\"}";
 
-            Promise p = PromiseInternet.Fetch("https://httpbin.org/post", scanContent);
+            Promise p = PromiseInternet.Fetch("http://192.168.1.109:3000/checkin", jsonstr);
 
             final Context mContext = this;
             p.then(new IDelegate() {
                 @Override
                 public void execute(String s) {
 
-                    String nama = "Ruben";
+                    String nama = s;
                     String text = "Welcome, " + nama;
 
                     AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
